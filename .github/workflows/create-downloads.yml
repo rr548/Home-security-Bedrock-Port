@@ -1,0 +1,28 @@
+name: Create Home Security downloads
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/create-downloads.yml"
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create folders
+        run: |
+          mkdir -p output
+
+      - name: Create placeholder files
+        run: |
+          printf 'Home Security Bedrock add-on\n' > output/Home_Security_Bedrock.mcaddon
+          printf 'Home Security Bedrock behavior pack\n' > output/Home_Security_Bedrock_BP.mcpack
+          printf 'Home Security Bedrock resource pack\n' > output/Home_Security_Bedrock_RP.mcpack
+
+      - name: Upload downloads
+        uses: actions/upload-artifact@v4
+        with:
+          name: Home-Security-Bedrock-Downloads
+          path: output/
